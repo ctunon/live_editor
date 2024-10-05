@@ -1,0 +1,139 @@
+basePath: /
+definitions:
+  models.Document:
+    properties:
+      content:
+        type: string
+      id:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a real-time document editor API with WebSockets.
+  title: Live Document Editor API
+  version: "1.0"
+paths:
+  /documents:
+    delete:
+      description: Delete a document by ID
+      parameters:
+      - description: Document ID
+        in: query
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a document
+      tags:
+      - documents
+    get:
+      description: Get a document by its ID
+      parameters:
+      - description: Document ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Document'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get a document by ID
+      tags:
+      - documents
+    post:
+      consumes:
+      - application/json
+      description: Create a new document with content
+      parameters:
+      - description: Document content
+        in: body
+        name: document
+        required: true
+        schema:
+          $ref: '#/definitions/models.Document'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Document'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new document
+      tags:
+      - documents
+    put:
+      consumes:
+      - application/json
+      description: Update the content of a document by ID
+      parameters:
+      - description: Document ID
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: Updated document content
+        in: body
+        name: document
+        required: true
+        schema:
+          $ref: '#/definitions/models.Document'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Document'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update a document
+      tags:
+      - documents
+swagger: "2.0"
